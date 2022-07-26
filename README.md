@@ -6,8 +6,6 @@
 
 This installation guide describes how to perform a clean installation of Cisco Cyber Vision on:
 
-* Cisco Catalyst IE3300 10G Rugged Series Switch
-* Cisco Catalyst IE3400 Rugged Series Switch
 * Cisco Catalyst 9300 Series Switch.
 
 Moreover, this document describes how to upgrade sensors through different methods.
@@ -61,10 +59,6 @@ having a route path from the Center to an <admin_VLAN> that is different from <c
 
 Any port of the switch can be used for the communication with the Center or for OT traffic.
 
-**Cisco Catalyst IE3300 10G & IE3400 Rugged Series Switch:**
-
-![IE3300 10G & IE3400 Switch](images/ie3300-ie3400.png)
-
 **Cisco Catalyst 9300 Series Switch:**
 
 ![9300 Switch](images/9300.png)
@@ -76,9 +70,7 @@ The hardware must have an access set to the Local Manager and to the CLI (ssh or
 **Elements to collect**
 
 * The Cisco Cyber Vision Sensor application to collect from Cisco.com, i.e.
-    * CiscoCyberVision-IOx-aarch64-<version>.tar (Cisco IE3300 10G, Cisco IE3400)
     * CiscoCyberVision-IOx-x86-64-<version>.tar (Cisco Catalyst 9300)
-    * CiscoCyberVision-IOx-Active-Discovery-aarch64-<version>.tar (Cisco IE3300 10G, Cisco IE3400 with Active Discovery)
     * CiscoCyberVision-IOx-Active-Discovery-x86-64-<version>.tar (Cisco Catalyst 9300 with Active Discovery)
 * A console cable, for the connection to the hardware's console port.
 
@@ -86,33 +78,9 @@ OR
 
 * An Ethernet cable, for the connection to one of the hardware's port.
 
-## Additional remarks
-
-**About the IE3400 and IE3300 10G platforms:**
-
-Cisco Cyber Vision Sensor application will receive ERSPAN traffic. Due to ERSPAN overhead it is recommended to not update the MTU of the platform (switch IE3x00) above 1940 bytes. Otherwise, large packets above 1940 will not be received by the sensor application.
-
 ## Hardware front view
 
 Before starting, take a moment to note and/or unscrew the following parts you're going to use during the procedure.
-
-**Cisco Catalyst IE3300 10G Rugged Series Switch:**
-
-* 8x RJ45 10/100/1000 BaseT connector (1)
-* 2x SFP 10G fiber port (2)
-* SD CARD (3)
-* Console connectors (4) RJ-45 and mini-USB
-
-![IE3300 Switch](images/ie3300front.png)
-
-**Cisco Catalyst IE3400 Rugged Series Switch:**
-
-* 8x RJ45 10/100/1000 BaseT connector (1)
-* 2x SFP 1G fiber port (2)
-* SD CARD (3)
-* Console connectors (4) RJ-45 and mini-USB
-
-![IE3400 Switch](images/ie4300front.png)
 
 **Cisco Catalyst 9300 Series switch:**
 
@@ -165,12 +133,6 @@ If not already done, insert a 120GB Cisco SSD disk in the SSD slot.
 #### Check date and time
 
 The internal clock of the switch must be synchronized and configured properly.
-
-![Note](images/note.gif)
-
-**Note**
-
-Unlike hardware sensors (i.e. IC3000) that fetch their time from the Center, the Cyber Vision IOX application sensor gets the time from the host (switch platform). Therefore, it is critical that the host synchronizes its time with the Center or a valid NTP server if it’s synchronized with the Center. If the time difference is large (hours or more), the user should adjust the IE3400 time using the Local Manager so it is close to the reference time. If not, the synchronization may take many update cycles.
 
 1. Check the date and time using the following command: ```show clock```
 
