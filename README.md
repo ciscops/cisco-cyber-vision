@@ -23,8 +23,22 @@ This manual contains notices you have to observe to ensure your personal safety 
 The notices referring to your personal safety and to your property damage are highlighted in the manual by a safety alert symbol described below. These notices are graded according to the degree of danger.
 
 ![Warning](images/warn.gif)
+
+**Warning**
+
+Indicates risks that involve industrial network safety or production failure that could possibly result in personal injury or severe property damage if proper precautions are not taken.
+
 ![Important](images/note.gif)
+
+**Important**
+
+Indicates risks that could involve property or Cisco equipment damage and minor personal injury if proper precautions are not taken.
+
 ![Note](images/note.gif)
+
+**Note**
+
+Indicates important information on the product described in the documentation to which attention should be paid.
 
 ## Overview
 
@@ -56,3 +70,18 @@ Any port of the switch can be used for the communication with the Center or for 
 **Cisco Catalyst 9300 Series Switch:**
 
 ![9300 Switch](images/9300.png)
+
+## Prerequisites
+
+The hardware must have an access set to the Local Manager and to the CLI (ssh or console port).
+
+**Elements to collect**
+
+* The Cisco Cyber Vision Sensor application to collect from Cisco.com, i.e.
+    * CiscoCyberVision-IOx-aarch64-<version>.tar (Cisco IE3300 10G, Cisco IE3400)
+    * CiscoCyberVision-IOx-x86-64-<version>.tar (Cisco Catalyst 9300)
+    * CiscoCyberVision-IOx-Active-Discovery-aarch64-<version>.tar (Cisco IE3300 10G, Cisco IE3400 with Active Discovery)
+    * CiscoCyberVision-IOx-Active-Discovery-x86-64-<version>.tar (Cisco Catalyst 9300 with Active Discovery)
+* A console cable, for the connection to the hardware's console port.
+OR
+* An Ethernet cable, for the connection to one of the hardware's port.
