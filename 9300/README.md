@@ -14,9 +14,9 @@ This guide is applicable to **system Cyber Vision version 4.1.0**.
 
 Proposed architecture:
 
-The architecture proposed and described in this document is for demonstration. The local network engineer should be consulted before applying the parameters used in this document. IP addresses, port numbers and VLAN IDs used should be verified beforehand as wrong configurations could stop normal exchanges and stop the process.
+The architecture proposed and described in this guide is to serve as an example.  The local network engineer should be consulted before applying the parameters used in this guide.  IP addresses, port numbers and VLAN IDs for your operational environment should be verified.
 
-The schema below explains the architecture virtually deployed in the switch to embed the sensor application. VLAN and physical ports configuration will allow OT traffic to be copied and communication with the Cisco Cyber Vision Center to be established.
+The schema below explains the architecture virtually deployed in the switch to embed the sensor application. VLAN and physical port configuration will allow OT traffic to be copied and communication with the Cisco Cyber Vision Center to be established.
 
 The communication between the Cisco Cyber Vision Center and the sensor is represented in blue on the schema. Mirrored OT traffic is represented in yellow.
 
