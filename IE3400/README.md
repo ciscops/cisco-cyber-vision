@@ -1,4 +1,4 @@
-# Cisco Cyber Vision Configuration For Catalyst IE3300 Series
+# Cisco Cyber Vision Configuration For Catalyst IE3400 Series
 
 ## About this documentation
 
@@ -6,7 +6,7 @@
 
 This installation guide describes how to perform a clean installation of Cisco Cyber Vision on:
 
-* Cisco Catalyst IE3300 10G Rugged Series Switch
+* Cisco Catalyst IE3400 10G Rugged Series Switch
 
 Moreover, this document describes how to upgrade sensors through different methods.
 
