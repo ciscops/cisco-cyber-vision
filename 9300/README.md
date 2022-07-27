@@ -1,16 +1,14 @@
 # Cisco Cyber Vision Configuration For Catalyst 9300 Series
 
-## About this documentation
+## About this guide
 
-### Document Purpose
+### Purpose
 
 This installation guide describes how to perform a clean installation of Cisco Cyber Vision on:
 
-* Cisco Catalyst 9300 Series Switch.
+* Cisco Catalyst 9300 Series switches.
 
-Moreover, this document describes how to upgrade sensors through different methods.
-
-This documentation is applicable to **system version 4.1.0**.
+This guide is applicable to **system Cyber Vision version 4.1.0**.
 
 ### Warnings and notices
 
