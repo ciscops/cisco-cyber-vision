@@ -25,7 +25,7 @@ The architecture in this document is meant for a switch with an embedded sensor 
 * one with a direct connection to the Center (link="switchport access vlan 507").
 * the other with a trunk to another switch or router which is connected to the Center (link="switch mode trunk").
 
-Several types of installation are explained. One of them is the installation with the Sensor Management extension. This method requires an access for the Cisco Cyber Vision Center to the switch's Local Manager. Several solutions exist:
+Multiple types of sensor installations are explained below. One method is the automated installation using the Sensor Management extension within the Cyber Vision Center; this is the preferred method for installing sensors, which possible. This method requires access for the Cisco Cyber Vision Center to connect and authenticate to the switche's Local Manager GUI interface . Several solutions exist:
 
 having the Center on the same subnet than the switch's Local Manager (<admin_VLAN> and <collection_VLAN> are the same).
 
