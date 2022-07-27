@@ -522,3 +522,92 @@ The sensor package is to be retrieved on cisco.com. The file has the following n
 ### Final step
 
 In the sensor's CLI save the product's configuration by typing the following command: ```write mem```
+
+## Upgrade procedures
+
+### Upgrade through the sensor management extension
+
+To upate IOx sensors, you just need to update the Cisco Cyber Vision sensor management extension.
+
+To do so, navigate to the extensions administration page and click the Update this extension button to browse the new version of the extension file.
+
+![Extensions](images/extensions.png)
+
+Cisco Cyber Vision will attempt to update all IOx sensors. This will take a moment. Update advancements are visible in the **Management jobs page**. A job will be created for each sensor.
+
+If a sensor update fails, check the management jobs error messages to have more information, and use the Update Cisco Devices button.
+
+### Upgrade through the Local Manager
+
+The following section explains how to upgrade the sensor through the Local Manager.
+
+In the Cisco Cyber Vision sensor administration page, the sensor is in 3.2.2. In the example below, we will upgrade a sensor to Cisco Cyber Vision version 3.2.3.
+
+![Update through Local Manager](images/local-manager-upgrade.png)
+
+1. Access the Local Manager.
+2. Stop the application.
+    ![Stop Application](images/stop-app.png)
+    The operation takes a few moments.
+    ![Loading Page](images/loading3.png)
+    The application status switches to STOPPED.
+    In Cisco Cyber Vision, the sensor status switches to Disconnected.
+    ![Sensor Status Disconnected](images/sensor-disconnected.png)
+3. In the Local Manager, click the Deactivate button.
+    * The application status moves to "DEPLOYED".
+4. Click Upgrade.
+    ![Upgrade](images/upgrade.png)
+    The pop up Upgrade application appears.
+    ![Upgrade Pop Up](images/pop-up-upgrade.png)
+5. Select the option Preserve Application Data.
+6. Select the new version of the application archive file.
+    e.g. CiscoCyberVision-IOx-aarch64-3.2.3.tar
+    ![Select New File](images/new-file.png)
+    The operation takes a few moments.
+    ![Loading Page](images/loading4.png)
+    A message indicating that the sensor has been successfully upgraded is displayed.
+    ![Successfully Upgraded](images/succesfully-upgraded.png)
+7. Check the number of the new version.
+8. Click Activate.
+    ![Activate](images/activate.png)
+9. Check configurations.
+    **It can happen that network configurations are lost during the upgrade. If they are, refer to Configure the sensor virtual application and do as explained.**
+10. Click the Activate App button.
+    The application status moves to ACTIVATED.
+11. Click the Start button.
+    The application status changes to RUNNING.
+    In Cisco Cyber Vision, the sensor is upgraded from version 3.2.2 to 3.2.3 and its status moves to Connected.
+    ![Connected Status](images/connected.png)
+
+## Reconfigure/Redeploy a sensor
+
+The Redeploy button is used when you need to replace a sensor model with another one keeping the same network configurations (e.g. replacing a Cisco IE3400 with a Cat 9300), change configurations, or if you need to reconfigure the sensor (e.g. to enable Active Discovery).
+
+To do so:
+
+**Procedure**
+
+1. On the Sensor Explorer page, click the sensor to reconfigure/redeploy. The sensor right side panel appears.
+2. Click the Redeploy button.
+    ![Redeploy Button](images/redeploy.png)
+    A pop up asking to confirm the redeployment of the sensor appears.
+3. 	Click OK to proceed.
+    A summary of the sensor configuration is displayed. In this example, we're going to change the Collection VLAN number.
+4. Click Start.
+    ![Get Cisco device configuration](images/get-config.png)
+5. Enter the credentials to reach the sensor to redeploy and click Connect.
+    ![Enter Credentials](images/enter-cred.png)
+6. Click the blue link to fill the warning fields with the current sensor configuration. We change the Collection VLAN number value to 49.
+    ![Configure sensor app](images/configure-app.png)
+7. Click Next.
+8. You can enable Active Discovery selecting Passive and Active Discovery.
+9. 	Click Deploy.
+    A message saying that the sensor is being redeployed appears. You can eather go the jobs page or go back to the Sensor Explorer page.
+10. Click Go to the jobs page.
+    ![Done Page](images/done.png)
+    You are redirected to the Management jobs page to see the redeployment advancement. This can take several minutes.
+    ![Management Jobs](images/management-jobs.png)
+    If you go back to the Sensor Explorer page, you will see that the sensor is in Redeploying status.
+    ![Sensor Explorer](images/sensor-explorer-page.png)
+    Once the redeployment is finished, the sensor will switch status to connected and the Active Discovery to Enabled.
+    ![Sensor Enabled](images/enabled.png)
