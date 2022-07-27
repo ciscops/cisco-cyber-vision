@@ -4,7 +4,7 @@
 
 ### Purpose
 
-This installation guide describes how to perform a clean installation of Cisco Cyber Vision on:
+This guide describes how to perform a clean installation of Cisco Cyber Vision on:
 
 * Cisco Catalyst 9300 Series switches.
 
