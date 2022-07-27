@@ -20,21 +20,15 @@ The notices referring to your personal safety and to your property damage are hi
 
 ![Warning](images/warn.gif)
 
-**Warning**
-
-Indicates risks that involve industrial network safety or production failure that could possibly result in personal injury or severe property damage if proper precautions are not taken.
+**Warning** Indicates risks that involve industrial network safety or production failure that could possibly result in personal injury or severe property damage if proper precautions are not taken.
 
 ![Important](images/note.gif)
 
-**Important**
-
-Indicates risks that could involve property or Cisco equipment damage and minor personal injury if proper precautions are not taken.
+**Important** Indicates risks that could involve property or Cisco equipment damage and minor personal injury if proper precautions are not taken.
 
 ![Note](images/note.gif)
 
-**Note**
-
-Indicates important information on the product described in the documentation to which attention should be paid.
+**Note** Indicates important information on the product described in the documentation to which attention should be paid.
 
 ## Overview
 
@@ -213,3 +207,146 @@ The initial configuration is now complete. Proceed with the application installa
 * Procedure with the Local Manager
 * Procedure with the CLI.
 
+#### Method 1: Procedure with the Cyber Vision sensor management extension
+
+After the Initial configuration, proceed to the steps described in this section. This section also describes the steps to configure Active Discovery.
+
+**Note** To be able to use the Cisco Cyber Vision sensor management extension, an IP address reachable by the Center Collection interface must be set on the Collection VLAN.
+
+##### Install the Sensor Management extension
+
+To install the Sensor Management extension, you must:
+
+1. Retrieve the extension file (i.e. CiscoCyberVision-sensor-management-<version>.ext) from cisco.com.
+2. Access the Extension administration page in Cisco Cyber Vision.
+3. Import the extension file.
+
+![Extension File](images/extension.png)
+
+Once the sensor management extension is installed, you will find a new management job under the sensor administration menu ([Management jobs page](https://www.cisco.com/c/en/us/td/docs/security/cyber_vision/publications/IE3400/b_Cisco_Cyber_Vision_Network_Sensor_Installation_Guide_for_Cisco_IE3300_10G_Cisco_IE3400_and_Cisco_Catalyst_9300/m_Installation_procedures_IE3400_Catalyst_9300_v3_4_0_0.html#topic_5850)), and the Install via extension button will be enabled in the Sensor Explorer page.
+
+##### Management jobs
+
+As some deployment tasks on sensors can take several minutes, this page shows the jobs execution status and advancement for each sensor deployed with the sensor management extension.
+
+This page is only visible when the sensor management extension is installed in Cisco Cyber Vision.
+
+![Management Jobs](images/management.png)
+
+You will find the following jobs:
+
+* Single deployment
+    * This job is launched when clicking the Deploy Cisco device button in the sensor administration page, that is when a new IOx sensor is deployed.
+* Single redeployment
+    * This job is launched when clicking the Reconfigure Redeploy button in the sensor administration page, that is when deploying on a sensor that has already been deployed. This option is used for example to change the sensor's parameters like enabling active discovery.
+* Single removal
+    * This job is launched when clicking the Remove button from the sensor administration page.
+* Update all devices
+    * This job is launched when clicking the Update Cisco devices button from the sensor administration page. A unique job is created for all managed sensors that are being updated.
+
+If a job fails, you can click on the error icon to view detailed logs.
+
+![Management Jobs Error](images/error.png)
+
+##### IOx APP sensor creation
+
+1. In Cisco Cyber Vision, navigate to Admin > Sensors > Sensor Explorer and click Install sensor, then Install via extension.
+
+![Sensor Explorer](images/sensor-explorer.png)
+
+2. Fill the requested fields so Cisco Cyber Vision can reach the switch:
+    * IP address: admin address of the switch
+    * Port: management port (443)
+    * Login: user with the admin rights of the switch
+    * Password: password of the admin user
+    * Capture Mode: Optionally, select a capture mode.
+
+![Installation Fields](images/install-fields.png)
+
+3. Click the Connect button.
+
+The Center will join the switch and the second parameter list will be displayed. For this step to succeed, the switch needs to be reachable by the Center on its eth1 connection.
+
+##### IOx APP sensor configuration
+
+If the Center can join the switch, the following form appears:
+
+![Configuration Fields](images/configure-fields.png)
+
+While some parameters are filled automatically, you can still change them if necessary.
+
+1. Fill the following parameters for the Collection interface:
+    * Capture IP address: IP address destination of the monitor session in the sensor
+    * Capture prefix length: mask of the capture IP address
+    * Capture VLAN number: VLAN of the monitor session in the sensor
+    * Collection IP address: IP address of the sensor in the device
+    * Collection prefix length: mask of the Collection IP address
+    * Collection gateway: gateway of the Collection IP address
+    * Collection VLAN number: VLAN of the sensor
+2. Click Next.
+3. **Active Discovery**
+    * If you want to enable Active Discovery on the sensor, select Passive and Active Discovery.
+    * You can:
+        * use the sensor Collection interface by selecting it:
+        ![Collection Interface](images/collection-interface.png)
+        * add new network interfaces filling the following parameters to set dedicated network interfaces and clicking Add:
+            * IP address
+            * Prefix length
+            * VLAN number
+        ![Add New Network Interfaces](images/add-collection-interface.png)
+4. Click the Deploy button.
+    * The Center starts deploying the sensor application on the target equipment. This can take a few minutes. You can go to the Management jobs page to check the deployment advancements.
+    ![Check Deployment](images/check-deploy.png)
+    * Once the deployment is finished, a new sensor appears in the sensors list.
+    * The sensor's status will eventually turn to connected.
+    ![Sensor Status](images/sensor-status.png)
+    * If the Active Discovery has been enabled and set -that is if the option "Passive and Active Discovery" was selected during the IOX App sensor configuration- the sensor is displayed as below with Active Discovery's status as Enabled.
+    ![Active Discovery](images/active-discovery.png)
+
+##### Configure Active Discovery
+
+Once the sensor is connected, you can change the Active Discovery's network interface so it uses the Collection network interface instead, and add several network interfaces for the sensor to perform Active Discovery on several subnetworks at the same time.
+
+**Procedure**
+
+1. Click the sensor to configure and click the Active Discovery button on its right side panel.
+    ![Active Discovery Button](images/active-discovery-button.png)
+    The Active Discovery configuration appears with the interface currently set.
+2. Select Use collection interface for the Active Discovery to use the Collection network interface.
+    ![Use Collection Interface](images/use-collection.png)
+    To add a network interface to Active Discovery for the sensor to perform active monitoring on another subnetwork:
+3. Add a new network interface by clicking the corresponding button.
+4. Fill the following parameters to set dedicated network interfaces:
+    * IP address
+    * Prefix length
+    * VLAN number
+5. Click Add.
+    ![Add Active Discovery Configuration](images/add-button.png)
+    You can add as many network interfaces as needed.
+6. When you are done, click Configure.
+    A message saying that the configuration has been applied successfully appears.
+
+#### Method 2: Procedure with the Local Manager
+
+After the Initial configuration, proceed to the steps described in this section.
+
+##### Access the Local manager
+
+1. Open a browser and navigate to the IP address you configured on the interface you are connected to.
+2. Log in using the Local Manager user account and password.
+    ![Login Page](images/login.png)
+    ![Dashboard](images/dashboard.png)
+3. Once logged into the Local Manager, navigate to Configuration > Services > IOx.
+    ![IoX Dashboard](images/iox-dashboard.png)
+4. Log in using the user account and password.
+    ![Log In](images/log-in.png)
+
+##### Install the sensor virtual application
+
+Once logged in, the following menu appears:
+
+![Menu](images/menu.png)
+
+1. Click Add New.
+2. Add an Application id name (e.g. CCVSensor).
+3. Select the application archive file ```"CiscoCyberVision-IOx-x86-64-xxx.tar"```
