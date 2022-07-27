@@ -350,3 +350,175 @@ Once logged in, the following menu appears:
 1. Click Add New.
 2. Add an Application id name (e.g. CCVSensor).
 3. Select the application archive file ```"CiscoCyberVision-IOx-x86-64-xxx.tar"```
+    ![Deploy Activation](images/deploy-activation.png)
+    The installation takes a few minutes.
+    ![Loading Page](images/loading.png)
+    When the application is installed, the following message is displayed:
+    ![Successfully Deployed](images/successfully-deployed.png)
+
+##### Configure the sensor virtual application
+
+1. Click Activate to launch the configuration of the sensor application.
+    ![Sensor Application](images/sensor-app.png)
+2. Change the disk size from the default size to 80,000 MB. The disk size must not be smaller than this.
+    ![Change Disk Size](images/disk.png)
+3. Bind the interfaces in the container to an interface on the host in Network Configuration. Start with eth0 by clicking edit in the eth0 line.
+    ![Bind Interfaces](images/bind-interface.png)
+4. Select the mgmt.-bridge300 entry in the interface list.
+    ![Select Entry](images/select-entry.png)
+5. Click Interface Setting.
+    ![Interface Setting](images/interface-setting.png)
+6. Apply the following configurations:
+    * Select Static
+    * IP/Mask: the IP and mask of the sensor
+    * Default gateway: the IP address of the Center
+    * Vlan ID, which is defined below, is the VLAN in the Cisco Catalyst 9300 dedicated to the Collection network interface (link between the Center and the sensors), e.g. 507.
+    ![Interface Configuration](images/interface-settings.png)
+7. IPV6 must be set to Disable.
+    ![Disable IPV6](images/disable-ipv6.png)
+8. Click OK twice.
+    ![Click OK](images/ok.png)
+9. Click OK again on the following popup.
+    ![Click OK](images/ok-pop-up.png)
+10. Apply the following configurations to eth1:
+    * Select the mgmt.-bridge300 entry in the interface list
+    * Select Static
+    * IP/Mask: the IP and mask of the sensor for mirrored traffic
+    * Vlan ID, will be defined below, is the VLAN in the Cisco Catalyst 9300 dedicated to traffic mirroring.
+    ![Interface Configuration](images/interface-config.png)
+11. IPV6 must be set to Disable.
+    ![Disable IPV6](images/disable-ipv6.png)
+12. Click OK until you come back to the screen below.
+13. Click the Activate App button.
+    ![Active App](images/activate-app.png)
+    The operation takes several seconds.
+    ![Loading Page](images/loading2.png)
+14. Click Applications to display the application status:
+    ![Application Status](images/app-status.png)
+15. The application is activated and needs to be started. To do so, click the Start button.
+    ![Start Application](images/start-app.png)
+    The operation takes several seconds.
+    ![Loading Page](images/loading2.png)
+    The application status changes to "RUNNING".
+    ![Application Running](images/running.png)
+
+##### Generate the provisioning package
+
+1. In Cisco Cyber Vision, navigate to Admin > Sensors > Sensor Explorer and click Install sensor and Manual install.
+    ![Manual Install](images/manual-install.png)
+    The manual install wizard appears.
+2. Select Cisco IOx Application and click Next.
+    ![Select Hardware Model](images/hardware-model.png)
+3. Fill the fields to configure the sensor provisioning package:
+    * The serial number of the hardware.
+    * Center IP: leave blank.
+    * Gateway: add if necessary.
+    * Optionally, select a capture mode.
+    ![Configure Porvisionning Package](images/configure-package.png)
+4. Click Create sensor.
+5. Click the link to download the provisioning package.
+    ![Download Porvisionning Package](images/download-package.png)
+    This will download the provisioning package which is a zip archive file with the following name structure: <sbs-sensor-config-serialnumber>.zip (e.g. "sbs-sensor-configFCW23500HDC.zip").
+6. Click Finish.
+7. A new entry for the sensor appears in the Sensor Explorer list.
+    The sensor status will switch from Disconnected to Connected.
+    ![Sensor Status](images/sensor-statuses.png)
+
+##### Import the provisioning package
+
+1. In the Local manager, in the IOx configuration menu, click Manage.
+    ![Manage Button](images/manage.png)
+2. Navigate to App_DataDir.
+    ![App_DataDir](images/app-data-dir.png)
+3. Click Upload.
+    ![Upload](images/upload.png)
+4. Choose the provisioning package downloaded (i.e. "sbs-sensor-config-FOC2334V01X.zip") and add the exact file name in the Path field (i.e. "sbs-sensor-config-FOC2334V01X.zip").
+5. Click OK.
+    ![Upload Configuration](images/upload-config.png)
+    A popup indicating that Cisco Cyber Vision has been deployed successfully appears.
+6. Click OK.
+
+#### Method 3: Procedure with the CLI
+
+After the Initial configuration, proceed to the steps described in this section.
+
+##### Configure the sensor application
+
+**Note** In this section, "CCVSensor" is used as the appid.
+
+1. Connect to the device through SSH or a console.
+2. Configure the application payload by typing the following commands:
+    ```enable```
+    ```configure terminal```
+    ```app-hosting appid CCVSensor```
+    ```app-vnic AppGigabitEthernet trunk```
+    ```vlan 507 guest-interface 0```
+    ```guest-ipaddress 192.168.69.210 netmask 255.255.255.0```
+    ```vlan 2508 guest-interface 1```
+    ```guest-ipaddress 169.254.1.2 netmask 255.255.255.0```
+    ```app-default-gateway 192.168.69.1 guest-interface 0```
+    ```app-resource profile custom```
+    ```persist-disk 8192```
+    ```cpu 7400```
+    ```memory 2048```
+    ```vcpu 2```
+    ```end```
+    ![Configure Device](images/configure-device.png)
+
+For the app-resource profile's custom values, refer to the result of the show app-hosting resource command.
+
+In this example, all maximum values are used for:
+
+* the CPU (CPU available units, here 1400 for the Cisco IE3300 10G/IE3400, and 7400 for the Cisco Catalyst 9300),
+* the vcpu (here 2), the memory (Memory available, here 2048),
+* the disk (only 2048 MB and 8192 MB respectively are used to let space for application updates).
+
+##### Install the sensor application
+
+The sensor package is to be retrieved on cisco.com. The file has the following name structure: ```CiscoCyberVision-IOx-x86-64-3.1.0.tar```
+
+1. Copy the package to a USB key or in the flash memory.
+2. Type the following commands on the CLI:
+    ```enable```
+    ```app-hosting install appid CCVSensor package usbflash0:<FILENAME>.tar```
+    ![CLI Commands](images/cli-commands.png)
+    **Note** Adjust "usbflash0:" in accordance with the sensor package's localization (USB port or flash memory).
+    **Note** Replace "CiscoCyberVision-IOx-aarch64-3.1.0-RC4.tar" with the right filename.
+3. Check that the application is in "DEPLOYED" state: ```show app-hosting list```
+    ![Check Deployment](images/check-deployment.png)
+4. Activate the application using the following command: ```pp-hosting activate appid CCVSensor```
+    ![Activate Applicaiton](images/activate-application.png)
+5. Start the application using the following command: ```app-hosting start appid CCVSensor```
+    ![Start Applicaiton](images/start-application.png)
+
+##### Generate the provisioning package
+
+1. In Cisco Cyber Vision, navigate to Admin > Sensors > Sensor Explorer and click Install sensor and Manual install.
+    ![Manual Install](images/manual-install.png)
+    The manual install wizard appears.
+2. Select Cisco IOx Application and click Next.
+    ![Select Hardware Model](images/hardware-model.png)
+3. Fill the fields to configure the sensor provisioning package:
+    * The serial number of the hardware.
+    * Center IP: leave blank.
+    * Gateway: add if necessary.
+    * Optionally, select a capture mode.
+    ![Configure Porvisionning Package](images/configure-package.png)
+4. Click Create sensor.
+5. Click the link to download the provisioning package.
+    ![Download Porvisionning Package](images/download-package.png)
+    This will download the provisioning package which is a zip archive file with the following name structure: <sbs-sensor-config-serialnumber>.zip (e.g. "sbs-sensor-configFCW23500HDC.zip").
+6. Click Finish.
+7. A new entry for the sensor appears in the Sensor Explorer list.
+    The sensor status will switch from Disconnected to Connected.
+    ![Sensor Status](images/sensor-statuses.png)
+
+##### Copy the sensor application provisioning package
+
+* Copy the provisioning package from the USB key to the application using the following command: ```app-hosting data appid CCVSensor copy usbflash0:sbs-sensor-config-<SERIAL-NUMBER>.zip sbs-sensor-config-<SERIAL-NUMBER>.zip```
+
+![Copy Provisioning Package](images/copy-package.png)
+
+### Final step
+
+In the sensor's CLI save the product's configuration by typing the following command: ```write mem```
