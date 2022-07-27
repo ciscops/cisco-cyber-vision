@@ -10,24 +10,6 @@ This guide describes how to perform a clean installation of Cisco Cyber Vision o
 
 This guide is applicable to **system Cyber Vision version 4.1.0**.
 
-### Warnings and notices
-
-This manual contains notices you have to observe to ensure your personal safety as well as to prevent damage to property.
-
-The notices referring to your personal safety and to your property damage are highlighted in the manual by a safety alert symbol described below. These notices are graded according to the degree of danger.
-
-![Warning](images/warn.gif)
-
-**Warning** Indicates risks that involve industrial network safety or production failure that could possibly result in personal injury or severe property damage if proper precautions are not taken.
-
-![Important](images/note.gif)
-
-**Important** Indicates risks that could involve property or Cisco equipment damage and minor personal injury if proper precautions are not taken.
-
-![Note](images/note.gif)
-
-**Note** Indicates important information on the product described in the documentation to which attention should be paid.
-
 ## Overview
 
 Proposed architecture:
